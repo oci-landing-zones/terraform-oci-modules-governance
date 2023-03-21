@@ -1,0 +1,79 @@
+# Copyright (c) 2023 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+#---------------------------------------------------------------------------------------------------------------------
+# 1. Rename this file to <project-name>.auto.tfvars, where <project-name> is any name of your choice.
+# 2. Provide values for "Tenancy Connectivity Variables".
+# 3. Replace <REPLACE-BY-TAG-NAMESPACE-COMPARTMENT-OCID> placeholder with the compartment ocid for tag namespaces.
+# 4. If applying tag defaults, replace <REPLACE-BY-COMPARTMENT-OCID> placeholders with actual compartment ocids.
+#    Otherwise, remove tag_defaults attributes altogether.
+#---------------------------------------------------------------------------------------------------------------
+
+#---------------------------------------
+# Tenancy Connectivity Variables
+#---------------------------------------
+
+tenancy_ocid         = "<tenancy OCID>"             # Get this from OCI Console (after logging in, go to top-right-most menu item and click option "Tenancy: <your tenancy name>").
+user_ocid            = "<user OCID>"                # Get this from OCI Console (after logging in, go to top-right-most menu item and click option "My profile").
+fingerprint          = "<PEM key fingerprint>"      # The fingerprint can be gathered from your user account. In the "My profile page, click "API keys" on the menu in left hand side.
+private_key_path     = "<path to the private key>"  # This is the full path on your local system to the API signing private key.
+private_key_password = ""                           # This is the password that protects the private key, if any.
+home_region          = "<your tenancy home region>" # This is your tenancy home region.
+
+
+#---------------------------------------
+# Input variable
+#---------------------------------------
+
+tags_configuration = {
+  cis_namespace_name : "cis"
+  default_compartment_ocid : "<REPLACE-BY-TAG-NAMESPACE-COMPARTMENT-OCID>"
+  default_defined_tags : null
+  default_freeform_tags : null
+  namespaces : {  
+    VISION-NAMESPACE  : { 
+      compartment_ocid : null,
+      name : "vision",  
+      description : "Vision tag namespace.",    
+      is_retired : false,  
+      defined_tags : null,
+      freeform_tags : null
+      tags : {
+        COST-CENTER-TAG : {
+          name : "cost-center",
+          description : "Cost center.",
+          is_cost_tracking : true,
+          is_retired : false,
+          valid_values : ["a1","b1","c1"] # tag values are checked against these values upon resource tagging.
+          tag_defaults : {
+            COST-CENTER-TAG-DEFAULT : {
+              compartment_ocids_to_apply : ["<REPLACE-BY-COMPARTMENT-OCID>"]
+              default_value : "a1"
+              is_user_required : false
+            }
+          },
+          defined_tags : null,
+          freeform_tags : null                
+        },
+        ENVIRONMENT-TAG : {
+          name : "environment-class",
+          description : "Environment class. high for production, low for others, like development, test, sandbox etc.",
+          is_cost_tracking : false,
+          is_retired : false,
+          valid_values : ["high","low"], # tag values are checked against these values upon resource tagging.
+          tag_defaults : {
+            ENVIRONMENT-TAG-DEFAULT : {
+              compartment_ocids_to_apply : ["<REPLACE-BY-COMPARTMENT-OCID>"]
+              default_value : "low"
+              is_user_required : true # default_value is ignored and users must provide a tag value upon resource creation
+            }
+          }
+        },
+        RESOURCE-ID-TAG : {
+          name : "resource-id",
+          description : "A random resource id, used to communicate any business-specific metadata about resources.",
+        }
+      } 
+    }  
+  }
+}  
