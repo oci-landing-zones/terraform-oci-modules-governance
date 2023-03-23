@@ -27,12 +27,12 @@ If \<tag_namespace_compartment_ocid\> is the root compartment, the permission be
 Allow group <group> to manage tag-namespaces in tenancy
 ```
 #### For Tag Defaults
-Permissions must be granted on the compartments where the tag defaults are applied. Within *tags*' *tag_defaults* attribute, these compartments are defined by *compartment_ocids_to_apply* attribute.
+Permissions must be granted on the compartments where the tag defaults are applied. Within *tags*' *tag_defaults* attribute, these compartments are defined by *compartment_ocids* attribute.
 ```
-Allow group <group> to manage tag-defaults in compartment <compartment_ocids_to_apply>
+Allow group <group> to manage tag-defaults in compartment <compartment_ocids>
 Allow group <group> to inspect tag-namespaces in tenancy
 ```
-If \<compartment_ocids_to_apply\> is the root compartment (tenancy level), the permissions become:
+If \<compartment_ocids\> is the root compartment (tenancy level), the permissions become:
 ```
 Allow group <group> to manage tag-defaults in tenancy
 Allow group <group> to inspect tag-namespaces in tenancy

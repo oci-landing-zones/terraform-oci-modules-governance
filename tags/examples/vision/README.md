@@ -35,8 +35,8 @@ Within the *tags* attribute:
 - *is_retired* indicates whether the tag is retired. Retired tags are no longer applied to resources.
 - *valid_values* enforce the allowed values for the tag. 
 - *tag_defaults* define the compartments where to auto apply defaults or require a value from users.
-   - *compartment_ocids_to_apply*: list of compartments to apply defaults
-   - *default_value*: the value to auto apply
+   - *compartment_ocids*: list of compartments to apply defaults to.
+   - *default_value*: the value to auto apply.
    - *is_user_required*: when true, *default_value* is ignored and user must provide a value. When false or absent, *default_value* is applied.
 
 3. In this folder, run the typical Terraform workflow:

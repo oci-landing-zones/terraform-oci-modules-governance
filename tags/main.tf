@@ -113,14 +113,14 @@ locals {
     for v1 in var.tags_configuration.namespaces : [
       for k2, v2 in v1.tags : [
         for k3, v3 in v2.tag_defaults : [
-          for cmp in v3.compartment_ocids_to_apply : {
+          for cmp in v3.compartment_ocids : {
             key  = "${k3}.${cmp}"
             tag_definition_id = oci_identity_tag.these[k2].id
             compartment_id = cmp
             default_value = v3.default_value
             is_user_required = v3.is_user_required != null ? v3.is_user_required : false
           } 
-        ] if v3.compartment_ocids_to_apply != null
+        ] if v3.compartment_ocids != null
       ] if v2.tag_defaults != null
     ] if v1.tags != null
   ]) : []                 

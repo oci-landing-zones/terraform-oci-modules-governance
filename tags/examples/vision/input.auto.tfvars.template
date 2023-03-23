@@ -47,7 +47,7 @@ tags_configuration = {
           valid_values : ["a1","b1","c1"] # tag values are checked against these values upon resource tagging.
           tag_defaults : {
             COST-CENTER-TAG-DEFAULT : {
-              compartment_ocids_to_apply : ["<REPLACE-BY-COMPARTMENT-OCID>"]
+              compartment_ocids : ["<REPLACE-BY-COMPARTMENT-OCID>"]
               default_value : "a1"
               is_user_required : false
             }
@@ -63,7 +63,7 @@ tags_configuration = {
           valid_values : ["high","low"], # tag values are checked against these values upon resource tagging.
           tag_defaults : {
             ENVIRONMENT-TAG-DEFAULT : {
-              compartment_ocids_to_apply : ["<REPLACE-BY-COMPARTMENT-OCID>"]
+              compartment_ocids : ["<REPLACE-BY-COMPARTMENT-OCID>"]
               default_value : "low"
               is_user_required : true # default_value is ignored and users must provide a tag value upon resource creation
             }

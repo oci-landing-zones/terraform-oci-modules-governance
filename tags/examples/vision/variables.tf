@@ -28,7 +28,7 @@ variable "tags_configuration" {
         is_retired       = optional(bool),
         valid_values     = optional(list(string)),
         tag_defaults     = optional(map(object({
-          compartment_ocids_to_apply = list(string),
+          compartment_ocids = list(string),
           default_value = string,
           is_user_required = optional(bool)
         })))

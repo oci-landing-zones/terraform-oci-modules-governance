@@ -6,31 +6,29 @@
 
 ## Providers
 
-| Name | Version |
-|------|---------|
-| <a name="provider_oci"></a> [oci](#provider\_oci) | n/a |
+No providers.
 
 ## Modules
 
-No modules.
+| Name | Source | Version |
+|------|--------|---------|
+| <a name="module_cislz_tags"></a> [cislz\_tags](#module\_cislz\_tags) | ../.. | n/a |
 
 ## Resources
 
-| Name | Type |
-|------|------|
-| [oci_identity_tag.these](https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/identity_tag) | resource |
-| [oci_identity_tag_default.these](https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/identity_tag_default) | resource |
-| [oci_identity_tag_namespace.these](https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/identity_tag_namespace) | resource |
-| [oci_identity_tag.default_created_by](https://registry.terraform.io/providers/oracle/oci/latest/docs/data-sources/identity_tag) | data source |
-| [oci_identity_tag.default_created_on](https://registry.terraform.io/providers/oracle/oci/latest/docs/data-sources/identity_tag) | data source |
-| [oci_identity_tag_namespaces.oracle_default](https://registry.terraform.io/providers/oracle/oci/latest/docs/data-sources/identity_tag_namespaces) | data source |
+No resources.
 
 ## Inputs
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
+| <a name="input_fingerprint"></a> [fingerprint](#input\_fingerprint) | n/a | `any` | n/a | yes |
+| <a name="input_home_region"></a> [home\_region](#input\_home\_region) | n/a | `any` | n/a | yes |
+| <a name="input_private_key_password"></a> [private\_key\_password](#input\_private\_key\_password) | n/a | `any` | n/a | yes |
+| <a name="input_private_key_path"></a> [private\_key\_path](#input\_private\_key\_path) | n/a | `any` | n/a | yes |
 | <a name="input_tags_configuration"></a> [tags\_configuration](#input\_tags\_configuration) | n/a | <pre>object({<br>    default_compartment_ocid = string,<br>    default_defined_tags     = optional(map(string)),<br>    default_freeform_tags    = optional(map(string))<br>    cis_namespace_name       = optional(string),<br>    namespaces = optional(map(object({<br>      name             = string,<br>      description      = string,<br>      compartment_ocid = optional(string),<br>      is_retired       = optional(bool),<br>      defined_tags     = optional(map(string)),<br>      freeform_tags    = optional(map(string))<br>      tags = optional(map(object({<br>        name             = string,<br>        description      = string,<br>        is_cost_tracking = optional(bool),<br>        is_retired       = optional(bool),<br>        valid_values     = optional(list(string)),<br>        tag_defaults     = optional(map(object({<br>          compartment_ocids = list(string),<br>          default_value = string,<br>          is_user_required = optional(bool)<br>        })))<br>        defined_tags        = optional(map(string)),<br>        freeform_tags       = optional(map(string)),<br>      })))  <br>    })))<br>  })</pre> | n/a | yes |
-| <a name="input_tenancy_ocid"></a> [tenancy\_ocid](#input\_tenancy\_ocid) | The tenancy ocid, used to search on tag namespaces. | `string` | n/a | yes |
+| <a name="input_tenancy_ocid"></a> [tenancy\_ocid](#input\_tenancy\_ocid) | n/a | `any` | n/a | yes |
+| <a name="input_user_ocid"></a> [user\_ocid](#input\_user\_ocid) | n/a | `any` | n/a | yes |
 
 ## Outputs
 
