@@ -17,7 +17,7 @@ This repository is part of a broader collection of repositories containing modul
 - [Networking](https://github.com/oracle-quickstart/terraform-oci-cis-landing-zone-networking)
 - [Governance](https://github.com/oracle-quickstart/terraform-oci-cis-landing-zone-governance) - current repository
 - Security - coming soon
-- Observability & Monitoring - coming soon
+- [Observability & Monitoring](https://github.com/oracle-quickstart/terraform-oci-cis-landing-zone-observability)
 
 The modules in this collection are designed for flexibility, are straightforward to use, and enforce CIS OCI Foundations Benchmark recommendations when possible.
 
