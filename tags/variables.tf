@@ -36,3 +36,15 @@ variable "tags_configuration" {
     })))
   })
 }  
+
+variable enable_output {
+  description = "Whether Terraform should enable module output."
+  type = bool
+  default = true
+}
+
+variable module_name {
+  description = "The module name."
+  type = string
+  default = "streams"
+}
