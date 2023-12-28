@@ -4,35 +4,39 @@
 
 This module manages tag namespaces, defined tags and tag defaults resources in Oracle Cloud Infrastructure. Tags are metadata added to resources to help in tenancy's organization, governance and security.
 
-Additionaly, following CIS (Center for Internet Security) OCI Foundations Benchmark recommendation, it provides an easy way to enable a tag namespace to track who creates resources and the creation time of the resources. This namespace is created upon request, and only if a potentially pre-existing tag namespace named "Oracle-Tags" with "CreatedBy" and "CreatedOn" tags is not available in the tenancy.
+Additionally, following CIS (Center for Internet Security) OCI Foundations Benchmark recommendation, it provides an easy way to enable a tag namespace to track who creates resources and the creation time of the resources. This namespace is created upon request, and only if a potentially pre-existing tag namespace named "Oracle-Tags" with "CreatedBy" and "CreatedOn" tags is not available in the tenancy.
 
 Check [module specification](./SPEC.md) for a full description of module requirements, supported variables, managed resources and outputs.
 
-The module uses a single variable (*tags_configuration*) for configuring an arbitrary number of tag namespaces, their defined tags and any tag defaults to apply on target compartments.
-
 Check the [examples](./examples/) folder for module usage with actual input data.
 
-## Requirements
+- [Requirements](#requirements)
+- [How to Invoke the Module](#invoke)
+- [Module Functioning](#functioning)
+- [Related Documentation](#related)
+- [Known Issues](#issues)
+
+## <a name="requirements">Requirements</a>
 ### IAM Permissions
 
 This module requires the following OCI IAM permissions:
 
 #### For Tag Namespaces
-Permissions must be granted on the compartments where the namespaces are defined. Within *tags_configuration*, these compartments are either defined for each tag namespace (using attribute *compartment_ocid*), or at the *tags_configuration* level (using attribute *default_compartment_ocid*), or at the tenancy level (using variable *tenancy_ocid*).
+Permissions must be granted on the compartments where the tag namespaces are defined. Within *tags_configuration*, these compartments are either defined for each tag namespace (using attribute *compartment_id*), or at the *tags_configuration* level (using attribute *default_compartment_id*), or at the tenancy level (using variable *tenancy_ocid*).
 ```
-Allow group <group> to manage tag-namespaces in compartment <tag_namespace_compartment_ocid>
+Allow group <group> to manage tag-namespaces in compartment <TAG-NAMESPACE-COMPARTMENT-OCID>
 ```
-If \<tag_namespace_compartment_ocid\> is the root compartment, the permission becomes:
+If *\<TAG-NAMESPACE-COMPARTMENT-OCID\>* is the root compartment, the permission becomes:
 ```
 Allow group <group> to manage tag-namespaces in tenancy
 ```
 #### For Tag Defaults
 Permissions must be granted on the compartments where the tag defaults are applied. Within *tags*' *tag_defaults* attribute, these compartments are defined by *compartment_ocids* attribute.
 ```
-Allow group <group> to manage tag-defaults in compartment <compartment_ocids>
+Allow group <group> to manage tag-defaults in compartment <COMPARTMENT-OCID>
 Allow group <group> to inspect tag-namespaces in tenancy
 ```
-If \<compartment_ocids\> is the root compartment (tenancy level), the permissions become:
+If *\<COMPARTMENT-OCID\>* is the root compartment (tenancy level), the permissions become:
 ```
 Allow group <group> to manage tag-defaults in tenancy
 Allow group <group> to inspect tag-namespaces in tenancy
@@ -59,7 +63,7 @@ required_version = ">= 1.3.0"
 experiments = [module_variable_optional_attrs]
 ```
 
-## How to Invoke the Module
+## <a name="invoke">How to Invoke the Module</a>
 
 Terraform modules can be invoked locally or remotely. 
 
@@ -85,6 +89,43 @@ For referring to a specific module version, append *ref=\<version\>* to the *sou
 ```
   source = "git@github.com:oracle-quickstart/terraform-oci-cis-landing-zone-iam-modules.git//tags?ref=v0.1.0"
 ```
+
+## <a name="functioning">Module Functioning</a>
+
+The module uses a single variable (*tags_configuration*) for configuring an arbitrary number of tag namespaces, their defined tags and any tag defaults to apply on target compartments. It contains a set of attributes starting with the prefix *default_* and a *namespaces* attribute that defines any number of tag namespaces and tags. The *default_* attribute values are applied to all namespaces and tags, unless overridden at the namespace/tag level. The *namespaces* attribute is a map of objects. Each object (tag namespace) is defined as a key/value pair. The key must be unique and not be changed once defined. See the [examples](./examples/) folder for sample declarations.
+
+The *default_* attributes are the following:
+
+- **default_compartment_id**: (Optional) The default compartment id for all resources managed by this module. It can be overridden by *compartment_id* attribute in each resource. It defaults to the *tenancy_ocid* variable if undefined.
+- **default_defined_tags**: (Optional) The default defined tags that are applied to all resources managed by this module. It can be overridden by *defined_tags* attribute in each resource.
+- **default_freeform_tags**: (Optional) The default freeform tags that are applied to all resources managed by this module. It can be overridden by *freeform_tags* attribute in each resource.
+
+### Defining Tag Namespaces and Tags
+- **namespaces**: A map of tag namespaces.
+  - **name**: The tag namespace name.             
+  - **description**: (Optional) The tag namespace description. It defaults to tag namespace *name* if undefined.
+  - **compartment_id**: (Optional) The compartment id for the tag namespace. It defaults to *default_compartment_id* if undefined.
+  - **is_retired**: (Optional) Whether the tag namespace is retired. Default: false.
+  - **defined_tags**: (Optional) The tag namespace defined tags. It defaults to *default_defined_tags* if undefined.
+  - **freeform_tags**: (Optional) The tag namespace freeform tags. It defaults to *default_freeform_tags* if undefined.
+  - **tags**: (Optional) The defined tags. It is a map of objects (tags) for this tag namespace, where each object is made of the following attributes:
+    - **name**: The tag name.
+    - **description**: (Optional) The tag description. It defaults to tag *name* if undefined.
+    - **is_cost_tracking**: (Optional) Whether the tag is a cost tracking tag. Default: false.
+    - **is_retired**: (Optional) Whether the tag is retired. Default: false.
+    - **valid_values**: (Optional) A list of valid values for the tag. If defined, any value assigned to the tag is checked against the list. 
+    - **tag_defaults**: (Optional) The tag default values to apply to the list of provided compartments.
+      - **compartment_ids**: The list of compartments to apply the tag defaults.
+      - **default_value**: The default value.
+      - **is_user_required**: (Optional) When true, *default_value* is ignored and user must provide a value when creating a resource in the target compartment. When false or absent, *default_value* is applied. Default: false.
+    - **defined_tags**: (Optional) The tag defined tags. It defaults to tag namespace *defined_tags* if undefined.
+    - **freeform_tags**: (Optional) The tag freeform tags. It defaults to tag namespace *freeform_tags* if undefined.  
+
+### <a name="extdep">External Dependencies</a>
+
+An optional feature, external dependencies are resources managed elsewhere that resources managed by this module may depend on. The following dependencies are supported:
+
+- **compartments_dependency**: A map of objects containing the externally managed compartments this module may depend on. All map objects must have the same type and must contain at least an *id* attribute with the compartment OCID. This mechanism allows for the usage of referring keys (instead of OCIDs) when defining compartments for tag namespaces and tag defaults targets. The module replaces the keys by the OCIDs provided within *compartments_dependency* map. Contents of *compartments_dependency* is typically the output of a [Compartments module](../compartments/) client.
 
 ## Related Documentation
 - [OCI Tagging Documentation](https://docs.oracle.com/en-us/iaas/Content/Tagging/home.htm)
