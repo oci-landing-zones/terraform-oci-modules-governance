@@ -6,7 +6,7 @@ This repository contains Terraform OCI (Oracle Cloud Infrastructure) modules for
 
 The following modules are available:
 - [Tags](./tags/)
-- Budgets - coming soon
+- [Budgets](./budgets/)
 
 Within each module you find an *examples* folder. Each example is a fully runnable Terraform configuration that you can quickly test and put to use by modifying the input data according to your own needs.  
 
@@ -18,6 +18,7 @@ This repository is part of a broader collection of repositories containing modul
 - [Governance](https://github.com/oracle-quickstart/terraform-oci-cis-landing-zone-governance) - current repository
 - [Security](https://github.com/oracle-quickstart/terraform-oci-cis-landing-zone-security)
 - [Observability & Monitoring](https://github.com/oracle-quickstart/terraform-oci-cis-landing-zone-observability)
+- [Secure Workloads](https://github.com/oracle-quickstart/terraform-oci-secure-workloads)
 
 The modules in this collection are designed for flexibility, are straightforward to use, and enforce CIS OCI Foundations Benchmark recommendations when possible.
 
