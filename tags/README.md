@@ -92,7 +92,7 @@ For referring to a specific module version, append *ref=\<version\>* to the *sou
 
 ## <a name="functioning">Module Functioning</a>
 
-The module uses a single variable (*tags_configuration*) for configuring an arbitrary number of tag namespaces, their defined tags and any tag defaults to apply on target compartments. It contains a set of attributes starting with the prefix *default_* and a *namespaces* attribute that defines any number of tag namespaces and tags. The *default_* attribute values are applied to all namespaces and tags, unless overridden at the namespace/tag level. The *namespaces* attribute is a map of objects. Each object (tag namespace) is defined as a key/value pair. The key must be unique and not be changed once defined. See the [examples](./examples/) folder for sample declarations.
+The module uses a single variable (*tags_configuration*) for configuring an arbitrary number of tag namespaces, their defined tags and any tag defaults to apply on target compartments. It contains a set of attributes starting with the prefix *default_* and a *namespaces* attribute that defines any number of tag namespaces and tags. The *default_* attribute values are applied to all namespaces and tags, unless overridden at the namespace/tag level. The *namespaces* attribute is a map of objects. Each object (tag namespace) is defined as a key/value pair. The key must be unique and not be changed once defined. See the [examples](./examples/) folder for sample declarations. Additionally, the module supports the easy creation of CIS recommended tags for identifying resource creators and the time when resources are created through the *cislz_namespace_name* attribute.
 
 The *default_* attributes are the following:
 
@@ -100,7 +100,12 @@ The *default_* attributes are the following:
 - **default_defined_tags**: (Optional) The default defined tags that are applied to all resources managed by this module. It can be overridden by *defined_tags* attribute in each resource.
 - **default_freeform_tags**: (Optional) The default freeform tags that are applied to all resources managed by this module. It can be overridden by *freeform_tags* attribute in each resource.
 
-### Defining Tag Namespaces and Tags
+CIS recommended tags:
+
+- **cislz_namespace_name**: when defined, the module creates a tag namespace along with *CreatedBy* and *CreatedOn* defined tags, but only if the *Oracle-Tags* namespace is not available in the tenancy. The *Oracle-Tag* namespace already defines *CreatedBy* and *CreatedOn* defined tags.
+
+Defining tag namespaces and tags:
+
 - **namespaces**: A map of tag namespaces.
   - **name**: The tag namespace name.             
   - **description**: (Optional) The tag namespace description. It defaults to tag namespace *name* if undefined.
