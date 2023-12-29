@@ -48,7 +48,7 @@ budgets_configuration = {
                 name : "tag-based-budget-alert-rule"
                 description : "A tag-based budget alert rule"
                 recipients : "<REPLACE-WITH-EMAIL-ADDRESS>"
-                message : "Actual spending is above USD 1000."
+                message : "Forecast spending exceeds budget."
             }
         }    
     }    

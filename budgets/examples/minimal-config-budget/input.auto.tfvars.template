@@ -33,7 +33,7 @@ budgets_configuration = {
             alert_rule : {
                 threshold_value : <REPLACE-WITH-THRESHOLD-VALUE>
                 recipients : "<REPLACE-WITH-EMAIL-ADDRESS>"
-                message : "Actual spending goes above 80% of configured budget."
+                message : "Actual spending above 80% of configured budget."
             }
         }    
     }    
