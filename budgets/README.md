@@ -121,4 +121,4 @@ An optional feature, external dependencies are resources managed elsewhere that 
 - [Budgets in Terraform OCI Provider](https://registry.terraform.io/providers/oracle/oci/latest/docs/resources/budget_budget)
 
 ## <a name="issues">Known Issues</a>
-- Currently, budget schedules can only be created as "MONTH" for *processing_period_type* attribute, as a bug in date values handling prevents usage of *single_use_start_date* and *single_use_end_date* attributes.
+None.
