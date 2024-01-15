@@ -1,7 +1,7 @@
-# January 04, 2024 Release Notes - 0.1.2
+# January 15, 2024 Release Notes - 0.1.2
 
 ## New
-1. A module for budgets is available. It supports the creation of budgets based on compartments or cost-tracking tags.
+1. A module for budgets is available. It manages budgets based on compartments or cost-tracking tags and alert messages based on specific thresholds.
 
 ## Updated
 1. The Tags module can now declare an external dependency on IAM compartments.
