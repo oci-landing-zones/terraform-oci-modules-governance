@@ -1,6 +1,6 @@
 # CIS OCI Tags Module Example - Vision Tags
 
-This example shows how to manage defined tags in Oracle Cloud Infrastructure for a hypothetical Vision entity.
+This example shows how to manage defined tags in Oracle Cloud Infrastructure for a hypothetical Vision entity using the [CIS Landing Zone Tags module](../..).
 
 The following resources are created in this example:
 

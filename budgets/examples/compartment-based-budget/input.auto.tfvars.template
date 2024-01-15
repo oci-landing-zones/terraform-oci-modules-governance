@@ -1,0 +1,53 @@
+# Copyright (c) 2023 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# 1. Rename this file to <project-name>.auto.tfvars, where <project-name> is any name of your choice.
+# 2. Provide values for "Tenancy Connectivity Variables".
+# 3. Replace <REPLACE-WITH-COMPARTMENT-OCID> placeholder with the target compartment OCID.
+# 4. Replace <REPLACE-WITH-BUDGET-AMOUNT> placeholder with the budget amount.
+# 5. Replace <REPLACE-WITH-THRESHOLD-VALUE> placeholder with the consumption percentage that triggers the alert rule.
+# 6. Replace <REPLACE-WITH-EMAIL-ADDRESS> placeholder with an actual email address to receive the budget alert message. For multiple addresses, separate them with a comma.
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#---------------------------------------
+# Tenancy Connectivity Variables
+#---------------------------------------
+
+tenancy_ocid         = "<tenancy OCID>"             # Get this from OCI Console (after logging in, go to top-right-most menu item and click option "Tenancy: <your tenancy name>").
+user_ocid            = "<user OCID>"                # Get this from OCI Console (after logging in, go to top-right-most menu item and click option "My profile").
+fingerprint          = "<PEM key fingerprint>"      # The fingerprint can be gathered from your user account. In the "My profile page, click "API keys" on the menu in left hand side.
+private_key_path     = "<path to the private key>"  # This is the full path on your local system to the API signing private key.
+private_key_password = ""                           # This is the password that protects the private key, if any.
+region               = "<your tenancy region>"      # This is your tenancy region.
+
+#---------------------------------------
+# Input variable
+#---------------------------------------
+
+budgets_configuration = {
+    budgets : {
+        COMPARTMENT-BASED-BUDGET : {
+            name : "compartment-budget"
+            description : "A sample budget based on a compartment."
+            target : {
+                type : "COMPARTMENT"
+                values : ["<REPLACE-WITH-COMPARTMENT-OCID"]
+            }
+            amount : <REPLACE-WITH-BUDGET-AMOUNT>
+            schedule : {
+                processing_period_type : "MONTH"
+                day_of_month_to_begin : 1
+            }
+            alert_rule : {
+                threshold_metric : "ACTUAL"
+                threshold_type : "PERCENTAGE"
+                threshold_value : <REPLACE-WITH-THRESHOLD-VALUE>
+                name : "compartment-budget-alert-rule"
+                description : "Alert rule for compartment-budget"
+                recipients : "<REPLACE-WITH-EMAIL-ADDRESS>"
+                message : "Actual spending above 80% of configured budget."
+            }
+        }    
+    }    
+}

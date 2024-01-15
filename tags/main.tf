@@ -16,7 +16,7 @@ locals {
   #-- The namespace
   cis_namespace = var.tags_configuration.cis_namespace_name != null && length(data.oci_identity_tag_namespaces.oracle_default.tag_namespaces) == 0 ? {
     (local.cis_namespace_key) = {
-      compartment_ocid = var.tenancy_ocid
+      compartment_id = var.tenancy_ocid
       name = local.cis_namespace_name
       description = "CIS recommended tag namespace."
       is_retired = false
@@ -100,8 +100,8 @@ locals {
         is_cost_tracking = v2.is_cost_tracking != null ? v2.is_cost_tracking : false
         is_retired = v2.is_retired != null ? v2.is_retired : false
         valid_values = v2.valid_values
-        defined_tags = v2.defined_tags
-        freeform_tags = v2.freeform_tags
+        defined_tags = v2.defined_tags != null ? v2.defined_tags : (v1.defined_tags != null ? v1.defined_tags : var.tags_configuration.default_defined_tags)
+        freeform_tags = merge(local.cislz_module_tag, v2.freeform_tags != null ? v2.freeform_tags : (v1.freeform_tags != null ? v1.freeform_tags : var.tags_configuration.default_freeform_tags))
       } 
     ] if v1.tags != null
   ]) : []
@@ -113,14 +113,14 @@ locals {
     for v1 in var.tags_configuration.namespaces : [
       for k2, v2 in v1.tags : [
         for k3, v3 in v2.tag_defaults : [
-          for cmp in v3.compartment_ocids : {
+          for cmp in v3.compartment_ids : {
             key  = "${k3}.${cmp}"
             tag_definition_id = oci_identity_tag.these[k2].id
             compartment_id = cmp
             default_value = v3.default_value
             is_user_required = v3.is_user_required != null ? v3.is_user_required : false
           } 
-        ] if v3.compartment_ocids != null
+        ] if v3.compartment_ids != null
       ] if v2.tag_defaults != null
     ] if v1.tags != null
   ]) : []                 
@@ -130,12 +130,12 @@ locals {
 #-- It loops through a merged map of namespaces and the optional local cis_namespace.
 resource "oci_identity_tag_namespace" "these" {
   for_each = merge(var.tags_configuration.namespaces != null ? var.tags_configuration.namespaces : {}, local.cis_namespace)
-    compartment_id = each.value.compartment_ocid != null ? each.value.compartment_ocid : var.tags_configuration.default_compartment_ocid != null ? var.tags_configuration.default_compartment_ocid : var.tenancy_ocid
+    compartment_id = each.value.compartment_id != null ? (length(regexall("^ocid1.*$", each.value.compartment_id)) > 0 ? each.value.compartment_id : var.compartments_dependency[each.value.compartment_id].id) : (var.tags_configuration.default_compartment_id != null ? (length(regexall("^ocid1.*$", var.tags_configuration.default_compartment_id)) > 0 ? var.tags_configuration.default_compartment_id : var.compartments_dependency[var.tags_configuration.default_compartment_id].id): var.tenancy_ocid)
     name           = each.value.name
-    description    = each.value.description
+    description    = coalesce(each.value.description, each.value.name)
     is_retired     = each.value.is_retired != null ? each.value.is_retired : false
-    defined_tags   = each.value.defined_tags
-    freeform_tags  = each.value.freeform_tags
+    defined_tags   = each.value.defined_tags != null ? each.value.defined_tags : var.tags_configuration.default_defined_tags
+    freeform_tags  = merge(local.cislz_module_tag, each.value.freeform_tags != null ? each.value.freeform_tags : var.tags_configuration.default_freeform_tags)
 }
 
 #-- Tags creation.
@@ -172,7 +172,7 @@ resource "oci_identity_tag_default" "these" {
                                                               compartment_id: td.compartment_id,
                                                               default_value: td.default_value,
                                                               is_user_required: td.is_user_required}},local.cis_created_by_tag_default, local.cis_created_on_tag_default)
-    compartment_id    = each.value.compartment_id
+    compartment_id    = length(regexall("^ocid1.*$", each.value.compartment_id)) > 0 ? each.value.compartment_id : var.compartments_dependency[each.value.compartment_id].id
     tag_definition_id = each.value.tag_definition_id                         
     value             = each.value.default_value       
     is_required       = each.value.is_user_required 

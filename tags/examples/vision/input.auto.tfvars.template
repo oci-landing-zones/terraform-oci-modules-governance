@@ -1,13 +1,13 @@
 # Copyright (c) 2023 Oracle and/or its affiliates.
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
-#---------------------------------------------------------------------------------------------------------------------
+#---------------------------------------------------------------------------------------------------------------------------------
 # 1. Rename this file to <project-name>.auto.tfvars, where <project-name> is any name of your choice.
 # 2. Provide values for "Tenancy Connectivity Variables".
-# 3. Replace <REPLACE-BY-TAG-NAMESPACE-COMPARTMENT-OCID> placeholder with the compartment ocid for tag namespaces.
-# 4. If applying tag defaults, replace <REPLACE-BY-COMPARTMENT-OCID> placeholders with actual compartment ocids.
+# 3. Replace <REPLACE-BY-TAG-NAMESPACE-COMPARTMENT-OCID> placeholder with the actual compartment OCID for tag namespaces.
+# 4. If applying tag defaults, replace <REPLACE-BY-COMPARTMENT-OCID> placeholders with actual compartment OCIDs for tag defaults.
 #    Otherwise, remove tag_defaults attributes altogether.
-#---------------------------------------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------------------------------------------------------
 
 #---------------------------------------
 # Tenancy Connectivity Variables
@@ -26,18 +26,13 @@ home_region          = "<your tenancy home region>" # This is your tenancy home 
 #---------------------------------------
 
 tags_configuration = {
-  cis_namespace_name : "cis"
-  default_compartment_ocid : "<REPLACE-BY-TAG-NAMESPACE-COMPARTMENT-OCID>"
-  default_defined_tags : null
-  default_freeform_tags : null
+  cis_namespace_name : "cis-namespace"
+  default_compartment_id : "<REPLACE-BY-TAG-NAMESPACE-COMPARTMENT-OCID>"
   namespaces : {  
     VISION-NAMESPACE  : { 
-      compartment_ocid : null,
       name : "vision",  
       description : "Vision tag namespace.",    
       is_retired : false,  
-      defined_tags : null,
-      freeform_tags : null
       tags : {
         COST-CENTER-TAG : {
           name : "cost-center",
@@ -47,27 +42,16 @@ tags_configuration = {
           valid_values : ["a1","b1","c1"] # tag values are checked against these values upon resource tagging.
           tag_defaults : {
             COST-CENTER-TAG-DEFAULT : {
-              compartment_ocids : ["<REPLACE-BY-COMPARTMENT-OCID>"]
+              compartment_ids : ["<REPLACE-BY-COMPARTMENT-OCID>"]
               default_value : "a1"
               is_user_required : false
             }
-          },
-          defined_tags : null,
-          freeform_tags : null                
+          }
         },
         ENVIRONMENT-TAG : {
           name : "environment-class",
           description : "Environment class. high for production, low for others, like development, test, sandbox etc.",
-          is_cost_tracking : false,
-          is_retired : false,
           valid_values : ["high","low"], # tag values are checked against these values upon resource tagging.
-          tag_defaults : {
-            ENVIRONMENT-TAG-DEFAULT : {
-              compartment_ocids : ["<REPLACE-BY-COMPARTMENT-OCID>"]
-              default_value : "low"
-              is_user_required : true # default_value is ignored and users must provide a tag value upon resource creation
-            }
-          }
         },
         RESOURCE-ID-TAG : {
           name : "resource-id",

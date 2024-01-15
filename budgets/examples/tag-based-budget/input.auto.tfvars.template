@@ -1,0 +1,55 @@
+# Copyright (c) 2023 Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+# 1. Rename this file to <project-name>.auto.tfvars, where <project-name> is any name of your choice.
+# 2. Provide values for "Tenancy Connectivity Variables".
+# 3. Replace <REPLACE-WITH-COST-TRACKING-TAG> placeholder with the cost tracking tag in the following format: <tag-namespace>.<tag-name>.<tag-value>, without the < > signs.
+# 4. Replace <REPLACE-WITH-BUDGET-AMOUNT> placeholder with the budget amount.
+# 5. Replace <REPLACE-WITH-THRESHOLD-VALUE> placeholder with the consumption amount value that triggers the alert rule.
+# 6. Replace <REPLACE-WITH-EMAIL-ADDRESS> placeholder with an actual email address to receive the budget alert message. For multiple addresses, separate them with a comma.
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+#---------------------------------------
+# Tenancy Connectivity Variables
+#---------------------------------------
+
+tenancy_ocid         = "<tenancy OCID>"             # Get this from OCI Console (after logging in, go to top-right-most menu item and click option "Tenancy: <your tenancy name>").
+user_ocid            = "<user OCID>"                # Get this from OCI Console (after logging in, go to top-right-most menu item and click option "My profile").
+fingerprint          = "<PEM key fingerprint>"      # The fingerprint can be gathered from your user account. In the "My profile page, click "API keys" on the menu in left hand side.
+private_key_path     = "<path to the private key>"  # This is the full path on your local system to the API signing private key.
+private_key_password = ""                           # This is the password that protects the private key, if any.
+region               = "<your tenancy region>"      # This is your tenancy region.
+
+#---------------------------------------
+# Input variable
+#---------------------------------------
+
+budgets_configuration = {
+    default_defined_tags = {"OracleInternalReserved.CostCenter" : "199", "OracleInternalReserved.UsageType" : "production-operations"}
+    budgets : {
+        TAG-BASED-BUDGET : {
+            name : "tag-based-budget"
+            description : "A budget based on a cost-tracking tag"
+            target : {
+                type : "TAG"
+                values : ["<REPLACE-WITH-COST-TRACKING-TAG>"]
+            }
+            amount : <REPLACE-WITH-BUDGET-AMOUNT>
+            schedule : {
+                processing_period_type : "MONTH"
+                /* single_use_start_date : "2024-01-01"
+                single_use_end_date : "2024-01-31" */
+            }
+            alert_rule : {
+                threshold_metric : "FORECAST"
+                threshold_type : "ABSOLUTE"
+                threshold_value : <REPLACE-WITH-THRESHOLD-VALUE>
+                name : "tag-based-budget-alert-rule"
+                description : "A tag-based budget alert rule"
+                recipients : "<REPLACE-WITH-EMAIL-ADDRESS>"
+                message : "Forecast spending exceeds budget."
+            }
+        }    
+    }    
+}
