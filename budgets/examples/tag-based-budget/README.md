@@ -1,4 +1,4 @@
-# CIS OCI Budgets Module Example - Tag Based Budget
+# OCI Landing Zones Budgets Module Example - Tag Based Budget
 
 This example shows how to manage budgets in Oracle Cloud Infrastructure using the [CIS Landing Zone Budgets module](../..). The configuration provided by this example creates a budget for a specific cost tracking tag. The budget starts in the budget creation day (as *day_of_month_to_begin* is undefined). An alert message is sent if the consumption exceeds the absolute value specified by *threshold_value* attribute.
 

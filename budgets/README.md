@@ -1,4 +1,4 @@
-# CIS OCI Landing Zone Budgets Module
+# OCI Landing Zones Budgets Module
 
 ![Landing Zone logo](../landing_zone_300.png)
 
