@@ -1,4 +1,4 @@
-# CIS OCI Budgets Module Example - Compartment Based Budget
+# OCI Landing Zones Budgets Module Example - Compartment Based Budget
 
 This example shows how to manage budgets in Oracle Cloud Infrastructure using the [CIS Landing Zone Budgets module](../..). The configuration provided by this example creates a budget for a specific target compartment. The budget starts in the first day of the current month.
 
