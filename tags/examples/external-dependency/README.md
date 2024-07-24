@@ -1,6 +1,6 @@
-# CIS OCI Tags Module Example - Vision Tags with External Dependencies
+# OCI Landing Zones Tags Module Example - Vision Tags with External Dependencies
 
-This example shows how to manage defined tags in Oracle Cloud Infrastructure for a hypothetical Vision entity using the [CIS Landing Zone Tags module](../..). It is functionally equivalent to the [vision example](../vision/). The difference is that it takes compartment dependencies from a file that sits in OCI Object Storage bucket.
+This example shows how to manage defined tags in Oracle Cloud Infrastructure for a hypothetical Vision entity using the [OCI Landing Zones Tags module](../..). It is functionally equivalent to the [vision example](../vision/). The difference is that it takes compartment dependencies from a file that sits in OCI Object Storage bucket.
 
 As this example needs to read from an OCI Object Storage bucket, the following extra permissions are required for the executing user, in addition to the permissions required by the [tags module](../..) itself.
 

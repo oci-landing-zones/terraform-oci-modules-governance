@@ -1,4 +1,4 @@
-# CIS OCI Budgets Module Example - Minimal Configuration (Root Compartment Budget)
+# OCI Landing Zones Budgets Module Example - Minimal Configuration (Root Compartment Budget)
 
 This example shows how to manage budgets in Oracle Cloud Infrastructure using the [CIS Landing Zone Budgets module](../..). The configuration provided by this example omits all optional attributes in the input variable.
 As a result, the monthly recurring budget starting in the budget create day is created for the tenancy Root compartment.
