@@ -1,4 +1,4 @@
-# CIS OCI Landing Zone Governance Modules
+# OCI Landing Zones Governance Modules
 
 ![Landing Zone logo](./landing_zone_300.png)
 

@@ -1,4 +1,4 @@
-# CIS OCI Landing Zone IAM Tags Module
+# OCI Landing Zones Tags Module
 
 ![Landing Zone logo](../landing_zone_300.png)
 
