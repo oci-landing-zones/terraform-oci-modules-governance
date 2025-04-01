@@ -79,7 +79,7 @@ The module uses a single variable (*tags_configuration*) for configuring an arbi
 
 The *default_* attributes are the following:
 
-- **default_compartment_id**: (Optional) The default compartment id for all resources managed by this module. It can be overridden by *compartment_id* attribute in each resource. It defaults to the *tenancy_ocid* variable if undefined.
+- **default_compartment_id**: (Optional) The default compartment id for all resources managed by this module. It can be overridden by *compartment_id* attribute in each resource. For referring to the *tenancy_ocid*, leave it unassigned or use the reserved key "TENANCY-ROOT".
 - **default_defined_tags**: (Optional) The default defined tags that are applied to all resources managed by this module. It can be overridden by *defined_tags* attribute in each resource.
 - **default_freeform_tags**: (Optional) The default freeform tags that are applied to all resources managed by this module. It can be overridden by *freeform_tags* attribute in each resource.
 
@@ -92,7 +92,7 @@ Defining tag namespaces and tags:
 - **namespaces**: A map of tag namespaces.
   - **name**: The tag namespace name.             
   - **description**: (Optional) The tag namespace description. It defaults to tag namespace *name* if undefined.
-  - **compartment_id**: (Optional) The compartment id for the tag namespace. It defaults to *default_compartment_id* if undefined.
+  - **compartment_id**: (Optional) The compartment id for the tag namespace. It defaults to *default_compartment_id* if undefined. For referring to the *tenancy_ocid*, use the reserved key "TENANCY-ROOT".
   - **is_retired**: (Optional) Whether the tag namespace is retired. Default: false.
   - **defined_tags**: (Optional) The tag namespace defined tags. It defaults to *default_defined_tags* if undefined.
   - **freeform_tags**: (Optional) The tag namespace freeform tags. It defaults to *default_freeform_tags* if undefined.
