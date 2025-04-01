@@ -1,3 +1,8 @@
+# April 01, 2025 Release Notes - 0.1.5
+## Updates
+1. [Tags Module](./tags/)    
+    - Attribute *default_compartment_id* made optional in *tags_configuration*.
+
 # August 27, 2024 Release Notes - 0.1.4
 ## Updates
 1. All modules now require Terraform binary equal or greater than 1.3.0.

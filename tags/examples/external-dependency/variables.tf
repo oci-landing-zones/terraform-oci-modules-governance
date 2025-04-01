@@ -10,7 +10,7 @@ variable "home_region" {}
 
 variable "tags_configuration" {
   type = object({
-    default_compartment_id   = string,
+    default_compartment_id   = optional(string),
     default_defined_tags     = optional(map(string)),
     default_freeform_tags    = optional(map(string))
     cis_namespace_name       = optional(string),
