@@ -130,7 +130,7 @@ locals {
 #-- It loops through a merged map of namespaces and the optional local cis_namespace.
 resource "oci_identity_tag_namespace" "these" {
   for_each = merge(var.tags_configuration.namespaces != null ? var.tags_configuration.namespaces : {}, local.cis_namespace)
-    compartment_id = each.value.compartment_id != null ? (length(regexall("^ocid1.*$", each.value.compartment_id)) > 0 ? each.value.compartment_id : var.compartments_dependency[each.value.compartment_id].id) : (var.tags_configuration.default_compartment_id != null ? (length(regexall("^ocid1.*$", var.tags_configuration.default_compartment_id)) > 0 ? var.tags_configuration.default_compartment_id : var.compartments_dependency[var.tags_configuration.default_compartment_id].id): var.tenancy_ocid)
+    compartment_id = each.value.compartment_id != null ? (upper(each.value.compartment_id) == "TENANCY-ROOT" ? var.tenancy_ocid : length(regexall("^ocid1.*$", each.value.compartment_id)) > 0 ? each.value.compartment_id : var.compartments_dependency[each.value.compartment_id].id) : (var.tags_configuration.default_compartment_id != null ? (upper(var.tags_configuration.default_compartment_id) == "TENANCY-ROOT") ? var.tenancy_ocid : (length(regexall("^ocid1.*$", var.tags_configuration.default_compartment_id)) > 0 ? var.tags_configuration.default_compartment_id : var.compartments_dependency[var.tags_configuration.default_compartment_id].id): var.tenancy_ocid)
     name           = each.value.name
     description    = coalesce(each.value.description, each.value.name)
     is_retired     = each.value.is_retired != null ? each.value.is_retired : false
