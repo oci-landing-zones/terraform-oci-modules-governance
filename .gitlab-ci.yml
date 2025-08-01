@@ -14,6 +14,6 @@ terraform-format-job:
     - terraform fmt -recursive
     - git add .
     - git commit -m "Automated commit from pipeline [skip ci]" || echo "No changes to commit"
-    - git remote set-url origin https://terraform-runner-token:${CI_ACCESS_TOKEN}@orahub.oci.oraclecorp.com/nace-shared-services/terraform-oci-cis-landing-zone-networking.git
+    - git remote set-url origin https://terraform-runner-token:${CI_ACCESS_TOKEN}@orahub.oci.oraclecorp.com/nace-shared-services/terraform-oci-cis-landing-zone-governance.git
     - git push origin HEAD:$CI_COMMIT_BRANCH
     - echo "  ----- Completed terraform fmt -----  "
