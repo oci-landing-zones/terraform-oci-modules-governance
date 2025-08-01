@@ -6,7 +6,7 @@
 #---------------------------------------------------------------------------
 #-- Looking for the CreatedBy tag in Oracle default tag namespace
 data "oci_identity_tag" "default_created_by" {
-        count            = length(data.oci_identity_tag_namespaces.oracle_default.tag_namespaces) > 0 ? 1 : 0
+  count            = length(data.oci_identity_tag_namespaces.oracle_default.tag_namespaces) > 0 ? 1 : 0
   tag_name         = local.cis_created_by_tag_name
   tag_namespace_id = data.oci_identity_tag_namespaces.oracle_default.tag_namespaces[0].id
 }
