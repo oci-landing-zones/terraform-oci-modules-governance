@@ -10,7 +10,7 @@ terraform-format-job:
         - "*.yml"
   script:
     - set -o pipefail
-    - echo "  ----- Running terraform fmt -----  "
+    - echo "  ----- Running terraform format -----  "
     - terraform fmt -recursive
     - git add .
     - git commit -m "Automated commit from pipeline [skip ci]" || echo "No changes to commit"
