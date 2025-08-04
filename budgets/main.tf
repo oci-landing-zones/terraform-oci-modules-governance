@@ -4,7 +4,7 @@
 resource "oci_budget_budget" "these" {
   for_each = var.budgets_configuration.budgets
   #compartment_id                        = each.value.compartment_id != null ? (length(regexall("^ocid1.*$", each.value.compartment_id)) > 0 ? each.value.compartment_id : var.compartments_dependency[each.value.compartment_id].id) : (var.budgets_configuration.default_compartment_id != null ? (length(regexall("^ocid1.*$", var.budgets_configuration.default_compartment_id)) > 0 ? var.budgets_configuration.default_compartment_id : var.compartments_dependency[var.budgets_configuration.default_compartment_id].id) : var.tenancy_ocid)
-  compartment_id                        = var.tenancy_ocid
+      compartment_id                        = var.tenancy_ocid
   display_name                          = each.value.name
   description                           = each.value.description != null ? each.value.description : each.value.name
   target_type                           = each.value.target != null ? coalesce(each.value.target.type, "COMPARTMENT") : "COMPARTMENT"
