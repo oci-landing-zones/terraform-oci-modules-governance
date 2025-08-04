@@ -7,7 +7,7 @@ terraform-format-job:
     - if: '$CI_PIPELINE_SOURCE == "push"'
       changes:
         - "**/*.tf"
-        - "*.yml"
+        - "**/*.yml"
   script:
     - set -o pipefail
     - echo "  ----- Running terraform fmt -----  "
