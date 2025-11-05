@@ -3,10 +3,10 @@
 
 output "budgets" {
   description = "The budgets."
-  value = oci_budget_budget.these
+  value       = oci_budget_budget.these
 }
 
 output "budget_alert_rules" {
   description = "The budget alert rules."
-  value = oci_budget_alert_rule.these
+  value       = oci_budget_alert_rule.these
 }

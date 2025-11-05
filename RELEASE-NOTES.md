@@ -1,3 +1,9 @@
+# November 5, 2025 Release Notes - 0.1.6
+## Updates
+1. [Tags Module](./tags/)
+   - Support for reserved key value "TENANCY-ROOT" when referring to Root compartment OCID in attribute *compartment_ids* when creating tag defaults.
+2. Formatted the code to adhere to Terraform standards.
+
 # April 01, 2025 Release Notes - 0.1.5
 ## Updates
 1. [Tags Module](./tags/)    
