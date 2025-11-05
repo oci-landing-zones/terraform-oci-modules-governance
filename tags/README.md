@@ -103,7 +103,7 @@ Defining tag namespaces and tags:
     - **is_retired**: (Optional) Whether the tag is retired. Default: false.
     - **valid_values**: (Optional) A list of valid values for the tag. If defined, any value assigned to the tag is checked against the list. 
     - **tag_defaults**: (Optional) The tag default values to apply to the list of provided compartments.
-      - **compartment_ids**: The list of compartments to apply the tag defaults.
+      - **compartment_ids**: The list of compartments to apply the tag defaults. For referring to the *tenancy_ocid*, use the reserved key "TENANCY-ROOT".
       - **default_value**: The default value.
       - **is_user_required**: (Optional) When true, *default_value* is ignored and user must provide a value when creating a resource in the target compartment. When false or absent, *default_value* is applied. Default: false.
     - **defined_tags**: (Optional) The tag defined tags. It defaults to tag namespace *defined_tags* if undefined.
