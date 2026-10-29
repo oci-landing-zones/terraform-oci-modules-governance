@@ -10,6 +10,15 @@ Check [module specification](./SPEC.md) for a full description of module require
 
 Check the [examples](./examples/) folder for module usage with actual input data.
 
+### Separate creation stages
+
+The `tags` module creates namespaces, tags and their defaults together. Its inputs and outputs are unchanged. For deployments that create the target compartments in the same Terraform configuration, call the following submodules separately:
+
+- [namespaces-and-tags](./namespaces-and-tags/) creates namespaces and tags, and exports `tag_defaults_configuration` with the tag definition IDs and unresolved target compartment references.
+- [defaults](./defaults/) consumes that configuration and the target compartment dependency map after those compartments exist.
+
+Namespaces must be created in the tenancy or an existing compartment when their tags are needed to create new compartments. Tag defaults apply to resources created afterward, so downstream resource creation must wait for the defaults and their propagation.
+
 - [Requirements](#requirements)
 - [How to Invoke the Module](#invoke)
 - [Module Functioning](#functioning)
