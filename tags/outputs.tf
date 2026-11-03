@@ -3,15 +3,15 @@
 
 output "tag_namespaces" {
   description = "The tag namespaces."
-  value       = oci_identity_tag_namespace.these
+  value       = module.namespaces_and_tags.tag_namespaces
 }
 
 output "tags" {
   description = "The tags."
-  value       = oci_identity_tag.these
+  value       = module.namespaces_and_tags.tags
 }
 
 output "tag_defaults" {
   description = "The tag defaults."
-  value       = oci_identity_tag_default.these
+  value       = module.defaults.tag_defaults
 }
