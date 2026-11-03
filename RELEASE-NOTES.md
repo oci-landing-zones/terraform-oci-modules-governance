@@ -1,4 +1,4 @@
-# Unreleased - 0.2.0
+# November 3, 2026 Release Notes - 0.2.0
 ## New
 1. [Tag Namespaces and Tags](./tags/namespaces-and-tags/) and [Tag Defaults](./tags/defaults/) submodules allow namespaces and tags to be created before compartments, with defaults created after their target compartments exist. The namespaces-and-tags output `tag_defaults_configuration` preserves existing default keys and resolves tag definition IDs without requiring target compartment IDs at that stage.
 
