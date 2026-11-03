@@ -8,6 +8,8 @@ This repository contains Terraform OCI (Oracle Cloud Infrastructure) modules for
 
 The following modules are available:
 - [Tags](./tags/)
+- [Tag Namespaces and Tags](./tags/namespaces-and-tags/)
+- [Tag Defaults](./tags/defaults/)
 - [Budgets](./budgets/)
 
 Within each module you find an *examples* folder. Each example is a fully runnable Terraform configuration that you can quickly test and put to use by modifying the input data according to your own needs.  
